@@ -1,0 +1,27 @@
+function y = betapdf2(x,p1,p2,options)
+
+arguments
+    x double  {mustBeInRange(x,0,1)}
+    p1 double {mustBePositive}
+    p2 double {mustBePositive}
+    options.param (1,1) string = 'standard' %(meanN,modeN)
+end
+
+switch options.param
+    case 'standard'
+        alpha = p1;
+        beta  = p2;
+    case 'meanN'
+        m = p1;
+        N = p2;
+        alpha = m.*N;
+        beta  = (1-m).*N;
+    case 'modeN'
+        m = p1;
+        N = p2;
+        alpha = m*(N-2)+1;
+        beta  = N-m*(N-1)-1;
+end
+
+alpha
+beta
